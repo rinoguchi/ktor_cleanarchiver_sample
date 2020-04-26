@@ -5,11 +5,7 @@ import interfaces.controller.MemoController.*
 import io.ktor.application.call
 import io.ktor.request.receiveParameters
 import io.ktor.response.respond
-import io.ktor.routing.Routing
-import io.ktor.routing.post
-import io.ktor.routing.get
-import io.ktor.routing.delete
-import io.ktor.routing.route
+import io.ktor.routing.*
 import io.ktor.util.getOrFail
 import org.koin.ktor.ext.inject
 
@@ -27,6 +23,10 @@ fun Routing.root() {
         delete("/{id}") {
             val input = MemoInput(call.parameters.getOrFail("id").toInt())
             call.respond(transactionWrapper{ memoController.delete(input) })
+        }
+        put("/{id}") {
+            val input = MemoInput(call.parameters.getOrFail("id").toInt(), call.receiveParameters().getOrFail("body"))
+            call.respond(transactionWrapper{ memoController.put(input) })
         }
     }
 }

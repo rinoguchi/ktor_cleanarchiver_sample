@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import infrastructure.framework.koinModules
 import io.ktor.application.*
 import io.ktor.jackson.jackson
-import io.ktor.locations.Locations
 import io.ktor.routing.*
 import infrastructure.framework.root
 import io.ktor.features.*
@@ -23,7 +22,6 @@ fun Application.module() {
             enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
-    install(Locations)
     routing {
         root()
     }
