@@ -25,7 +25,7 @@ fun Routing.root() {
             call.respond(transactionWrapper{ memoController.delete(input) })
         }
         put("/{id}") {
-            val input = MemoInput(call.parameters.getOrFail("id").toInt(), call.receiveParameters().getOrFail("body"))
+            val input = MemoPutInput(call.parameters.getOrFail("id").toInt(), call.receiveParameters().getOrFail("body"))
             call.respond(transactionWrapper{ memoController.put(input) })
         }
     }

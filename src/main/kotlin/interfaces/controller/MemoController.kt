@@ -12,9 +12,11 @@ class MemoController : KoinComponent {
     private val memoRepository: MemoRepository by inject()
     private val logger: Logger = LoggerFactory.getLogger("MemoController")
     
-    data class MemoInput(val id: Int, val body: String? = null)
-
+    data class MemoInput(val id: Int)
+    
     data class MemoPostInput(val body: String)
+
+    data class MemoPutInput(val id: Int, val body: String)
 
     data class MemoOutput(val id: Int, val body: String, val keywords: List<String>)
     
@@ -23,27 +25,27 @@ class MemoController : KoinComponent {
     }
     
     
-    fun get(memoInput: MemoInput): MemoOutput {
+    fun get(input: MemoInput): MemoOutput {
         logger.info("MemoController.get called.")
-        val memo: Memo = memoRepository.findById(memoInput.id)
+        val memo: Memo = memoRepository.findById(input.id)
         return memoToMemoOutput(memo)
     }
 
-    fun post(memoPostInput: MemoPostInput): MemoOutput {
+    fun post(input: MemoPostInput): MemoOutput {
         logger.info("MemoController.post called.")
-        val memo: Memo = memoRepository.create(memoPostInput.body)
+        val memo: Memo = memoRepository.create(input.body)
         return memoToMemoOutput(memo)
     }
     
-    fun put(memoInput: MemoInput): MemoOutput {
+    fun put(input: MemoPutInput): MemoOutput {
         logger.info("MemoController.put called.")
-        val memo: Memo = memoRepository.update(memoInput.id, memoInput.body!!)
+        val memo: Memo = memoRepository.update(input.id, input.body!!)
         return memoToMemoOutput(memo)
     }
 
-    fun delete(memoInput: MemoInput) {
+    fun delete(input: MemoInput) {
         logger.info("MemoController.delete called.")
-        memoRepository.delete(memoInput.id)
+        memoRepository.delete(input.id)
     }
 }
 
