@@ -4,19 +4,19 @@ import domain.Memo
 import interfaces.repository.MemoRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.koin.logger.SLF4JLogger
+import javax.validation.constraints.Size
 
 class MemoController : KoinComponent {
 
     private val memoRepository: MemoRepository by inject()
-    private val logger: Logger = LoggerFactory.getLogger("MemoController")
+    private val logger: SLF4JLogger by inject()
     
     data class MemoInput(val id: Int)
     
-    data class MemoPostInput(val body: String)
-
-    data class MemoPutInput(val id: Int, val body: String)
+    data class MemoPostInput(@field:Size(max = 20) val body: String)
+    
+    data class MemoPutInput(val id: Int, @field:Size(max = 20) val body: String)
 
     data class MemoOutput(val id: Int, val body: String, val keywords: List<String>)
     

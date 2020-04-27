@@ -11,6 +11,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import org.jetbrains.exposed.sql.Database
 import org.koin.ktor.ext.Koin
+import javax.validation.ValidationException
 
 fun Application.module() {
     log.info("application starting...")
@@ -36,6 +37,12 @@ fun Application.module() {
             call.respond(HttpStatusCode.BadRequest, ErrorResponse(it.message))
         }
         exception<MissingRequestParameterException> {
+            call.respond(HttpStatusCode.BadRequest, ErrorResponse(it.message))
+        }
+        exception<ParameterConversionException> {
+            call.respond(HttpStatusCode.BadRequest, ErrorResponse(it.message))
+        }
+        exception<ValidationException> {
             call.respond(HttpStatusCode.BadRequest, ErrorResponse(it.message))
         }
         exception<Throwable> {
