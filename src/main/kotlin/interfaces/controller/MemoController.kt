@@ -39,7 +39,7 @@ class MemoController : KoinComponent {
     
     fun put(input: MemoPutInput): MemoOutput {
         logger.info("MemoController.put called.")
-        val memo: Memo = memoRepository.update(input.id, input.body!!)
+        val memo: Memo = memoRepository.update(input.id, input.body)
         return memoToMemoOutput(memo)
     }
 
