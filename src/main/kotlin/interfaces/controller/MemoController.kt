@@ -21,7 +21,7 @@ class MemoController : KoinComponent {
     data class MemoOutput(val id: Int, val body: String, val keywords: List<String>)
     
     private fun memoToMemoOutput(memo: Memo): MemoOutput {
-        return MemoOutput(memo.id, memo.body, memo.keywords!!)
+        return MemoOutput(memo.id, memo.body, memo.keywords)
     }
     
     
